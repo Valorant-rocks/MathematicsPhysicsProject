@@ -209,39 +209,110 @@ Console.WriteLine("The Solutions are:\n"+ans1+"\n"+ans2);
                 
                 static void linearEquation()
                 {
-                    Console.Clear();
-                    Console.Write("Enter how many variables  =    "); 
-                    int variable=Convert.ToInt16(Console.ReadLine());
-                    double [,]coefficent=new double [variable+1,variable]; 
-                    
+                    //input part (user interaction)
+            Console.Clear();
+            Console.Write("Enter how many variables = ");
+            int variable = Convert.ToInt16(Console.ReadLine());
+            double[,] coefficent = new double[variable + 1, variable + 1];
+            double[] constant = new double[variable + 1];
 
-                    for (int i = 0; i <= variable; i++)
-                    {
-                        coefficent[0,i]=0;
-                    }
+            //fuck c# array intendation
+            for (int i = 0; i <= variable; i++)
+            {
+                coefficent[0, i] = 0;
+            }
 
-                    for (int i = 1; i <= variable; i++)
-                    {
-                        for (int j = 1; j <=variable; j++)
-                        {
-                        Console.Write("Enter the coefficient of variable no.  "+j +"   in equation no  "+i+"           =");
-                       coefficent[i,j]= Convert.ToInt16(Console.ReadLine());
-                        }
-                    }
+            for (int i = 0; i <= variable; i++)
+            {
+                coefficent[i, 0] = 0;
+            }
 
-
+            constant[0] = 0;
 
 
-
-
-
-
-                    int hcf()
-                    {
-                        int a=0;
-                        return a;
-                    }
+            //acutal array input part
+            for (int i = 1; i <= variable; i++)
+            {
+                Console.Clear();
+                for (int j = 1; j <= variable; j++)
+                {
+                    Console.Write("Enter the coefficient of variable no. " + j + " in equation no " + i + " = ");
+                    coefficent[i, j] = Convert.ToInt16(Console.ReadLine());
                 }
+                Console.Write("Enter the constant value in eqn " + i + " =     ");
+                constant[i] = Convert.ToInt16(Console.ReadLine());
+            }
+
+            //upper triangular matrix
+            int counter, c;
+            counter = 1;
+
+            while (counter <= variable)
+            {
+             
+                constant[counter] = constant[counter] / coefficent[counter, counter];
+                //normalization
+                for (int i = variable; i >= 1; i--)
+                {
+                    coefficent[counter, i] = (coefficent[counter, i]) / coefficent[counter, counter];
+                }
+
+                c = counter + 1;
+                //row reduction
+                while (c <= variable)
+                {
+                    constant[c] = constant[c] - constant[counter] * coefficent[c, counter];
+                    for (int i = variable; i >= 1; i--)
+                    {
+                        coefficent[c, i] = coefficent[c, i] - coefficent[counter, i] * coefficent[c, counter];
+                    }
+                    c++;
+                }
+                counter++;
+            }
+
+
+            //lower triangular matrix
+            int counter1, c1;
+            counter1 = variable;
+
+
+            while (counter1 >= 1)
+            {
+                
+                constant[counter1] = constant[counter1] / coefficent[counter1, counter1];
+                //normalization
+                for (int i = variable; i >= 1; i--)
+                {
+                    coefficent[counter1, i] = (coefficent[counter1, i]) / coefficent[counter1, counter1];
+                }
+
+                c1 = counter1 - 1;
+
+                //row reduction
+                while (c1 >= 1)
+                {
+                    constant[c1] = constant[c1] - constant[counter1] * coefficent[c1, counter1];
+                    for (int i = variable; i >= 1; i--)
+                    {
+                        coefficent[c1, i] = coefficent[c1, i] - coefficent[counter1, i] * coefficent[c1, counter1];
+                    }
+                    c1--;
+                }
+                counter1--;
+            }
+            
+            //display
+            for (int i = 1; i <= variable; i++)
+            {
+                Console.WriteLine("solution  of   "+i+" th variable =======" + constant[i]);
+            }
+
+
+
+                    }
+                    
+                
             
          
 
