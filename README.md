@@ -56,4 +56,4 @@ Contributions are welcome! If you have any ideas, improvements, or bug fixes, pl
 
 ## License
 
-This project is licensed under the (MIT License)[https://opensource.org/license/mit/].
+This project is licensed under the [MIT License](https://opensource.org/license/mit/).
